@@ -1,4 +1,6 @@
-var playState = {
+var PlayState = function(game){};
+
+PlayState = {
     //assets
     player: null,
     platforms: null,

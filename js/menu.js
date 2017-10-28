@@ -1,4 +1,6 @@
-var menuState = {
+var MenuState = function(game){};
+
+MenuState = {
     create: function () {
         game.add.text(16, 16, 'HunGRy Monster Game', {fontSize: '32px', fill: '#fff'});
         game.add.text(16, game.world.height - (16 + 32), 'Press the "Spacebar" key to start', {fontSize: '32px', fill: '#fff'});
