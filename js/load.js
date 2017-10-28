@@ -1,4 +1,5 @@
-var LoadState = function(game){};
+var LoadState = function (game) {
+};
 
 LoadState.prototype = {
     preload: function () {
@@ -19,7 +20,7 @@ LoadState.prototype = {
         game.load.audio('hit', 'assets/sounds/hit.mp3');
     },
 
-    create: function () {        
+    create: function () {
         game.state.start('menu');
     }
-}
+};

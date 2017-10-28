@@ -1,6 +1,7 @@
-var PlayState = function(game){};
+var PlayState = function (game) {
+};
 
-PlayState = {
+PlayState.prototype = {
     //assets
     player: null,
     platforms: null,
@@ -9,7 +10,7 @@ PlayState = {
     spikes: null,
 
     //counters
-    starsCount: 12,
+    starsCount: 14,
     starCollected: 0,
     score: 0,
     lives: 2,
@@ -25,18 +26,21 @@ PlayState = {
     loseSound: null,
     hitSound: null,
 
-    create: function () {
-        // This function is called after the preload function     
-        // Here we set up the game, display sprites, etc.  
-
+    init: function () {
         this.starCollected = 0;
         this.score = 0;
         this.lives = 2;
         this.scoreText = null;
         this.livesText = null;
+    },
+
+    create: function () {
+        // This function is called after the preload function     
+        // Here we set up the game, display sprites, etc.
 
         //  A simple background for our game
-        game.add.sprite(0, 0, 'sky');
+        var sky = game.add.sprite(0, 0, 'sky');
+        sky.scale.setTo(2, 1);
 
         this.loadSounds();
         this.createPlatforms();
@@ -85,7 +89,10 @@ PlayState = {
     },
     showLives: function (lives) {
         if (this.livesText === null) {
-            this.livesText = game.add.text(game.world.width - 150, 16, 'Lives: ' + lives, {fontSize: '32px', fill: '#000'});
+            this.livesText = game.add.text(game.world.width - 150, 16, 'Lives: ' + lives, {
+                fontSize: '32px',
+                fill: '#000'
+            });
         } else {
             this.livesText.text = 'Lives: ' + lives;
         }
@@ -102,15 +109,18 @@ PlayState = {
         this.platforms = game.add.group();
         //  We will enable physics for any object that is created in this group
         this.platforms.enableBody = true;
+
         // Here we create the ground.
         var ground = this.platforms.create(0, game.world.height - 64, 'ground');
         //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-        ground.scale.setTo(2, 2);
+        ground.scale.setTo(3, 2);
         //  This stops it from falling away when you jump on it
         ground.body.immovable = true;
+
         //  Now let's create two ledges
-        var ledge = this.platforms.create(400, 400, 'ground');
+        var ledge = this.platforms.create(400, 350, 'ground');
         ledge.body.immovable = true;
+
         ledge = this.platforms.create(-150, 250, 'ground');
         ledge.body.immovable = true;
     },
@@ -133,8 +143,7 @@ PlayState = {
         //  We will enable physics for any star that is created in this group
         this.stars.enableBody = true;
         //  Here we'll create 12 of them evenly spaced apart
-        for (var i = 0; i < this.starsCount; i++)
-        {
+        for (var i = 0; i < this.starsCount; i++) {
             //  Create a star inside of the 'stars' group
             var star = this.stars.create(i * 70, 0, 'star');
             //  Let gravity do its thing
@@ -185,26 +194,22 @@ PlayState = {
     updateMovement: function () {
         //  Reset the players velocity (movement)
         this.player.body.velocity.x = 0;
-        if (this.cursors.left.isDown)
-        {
+        if (this.cursors.left.isDown) {
             //  Move to the left
             this.player.body.velocity.x = -150;
             this.player.animations.play('left');
-        } else if (this.cursors.right.isDown)
-        {
+        } else if (this.cursors.right.isDown) {
             //  Move to the right
             this.player.body.velocity.x = 150;
             this.player.animations.play('right');
-        } else
-        {
+        } else {
             //  Stand still
             this.player.animations.stop();
             this.player.frame = 4;
         }
 
         //  Allow the player to jump if they are touching the ground.
-        if (this.cursors.up.isDown && this.player.body.touching.down)
-        {
+        if (this.cursors.up.isDown && this.player.body.touching.down) {
             this.player.body.velocity.y = -350;
         }
     },

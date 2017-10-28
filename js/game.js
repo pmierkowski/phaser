@@ -1,5 +1,5 @@
 // Initialize Phaser, and create a 800px by 600px game
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameDiv');
+game = new Phaser.Game(960, 540, Phaser.AUTO, 'gameDiv');
 
 // Add the 'mainState' and call it 'main'
 game.state.add('boot', BootState);
