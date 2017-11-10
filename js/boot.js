@@ -19,8 +19,8 @@ BootState.prototype = {
             game.scale.refresh();
         } else {
             game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
-            game.scale.minWidth = 800;
-            game.scale.minHeight = 600;
+            game.scale.minWidth = 960;
+            game.scale.minHeight = 540;
             game.scale.refresh();
         }
     }

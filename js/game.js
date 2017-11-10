@@ -13,6 +13,7 @@ game.state.add('lose', LoseState);
 game.state.start('boot');
 
 //TODO
+//sterowanie na komorce
 //sensowna architektówa
 //test na komórkach
 //fullscrean 
