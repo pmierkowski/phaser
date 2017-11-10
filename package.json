@@ -1,0 +1,20 @@
+{
+  "name": "phasar",
+  "version": "1.0.0",
+  "description": "<pre>npm install phaser-ce@2.9.1</pre>",
+  "main": "index.js",
+  "dependencies": {
+    "phaser-ce": "^2.9.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/pmierkowski/phaser.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/pmierkowski/phaser#readme"
+}

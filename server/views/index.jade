@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    p Welcome to #{title}
+    div Sample var: #{sample_var}
+        br
+        a(href='/users', style='font-weight:bold') users
