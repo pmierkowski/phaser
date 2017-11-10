@@ -27,6 +27,8 @@ game.state.start('boot');
 //dźwęk klikania
 //jakieś wspólne dźwięki, jakieś consty, wspólne biblioteki
 //przejrzeć kod jakichś przykładowych gierek
+//w grze ustawianie nicka, zapisywanie wyników i ich wyświetlanie na koncu wyników
+//w nodejs odbieranie wyników, zapis do SQLite i zwracanie wyników
 
 // function toggleFullScreen() {
 //   if ((document.fullScreenElement && document.fullScreenElement !== null) ||
