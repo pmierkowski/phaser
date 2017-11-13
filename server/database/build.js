@@ -16,9 +16,9 @@ let sqlCreateUsersTable = `
 let sqlInsertSampleUsers = `
     INSERT INTO users (name, score) 
     VALUES(
-        'Jan', 500  
+        'Jan', 10  
     ),(
-        'Stefan', 1000
+        'Stefan', 20
     );`;
 
 db.serialize(() => {

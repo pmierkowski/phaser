@@ -26,6 +26,9 @@ router.post('/', function (req, res, next) {
 
     let db = new sqlite3.Database(dbPath);
     db.run(sql, [name, score], (err, row) => {
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+        res.setHeader('Access-Control-Allow-Credentials', true);
+
         res.json({'status': true});
     });
     db.close();
@@ -37,12 +40,15 @@ router.post('/', function (req, res, next) {
 router.get('/', function (req, res, next) {
     let sql = `
         SELECT * FROM users
-        ORDER BY score ASC
+        ORDER BY score DESC
         LIMIT 10;
     `;
 
     let db = new sqlite3.Database(dbPath);
     db.all(sql, (err, row) => {
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+        res.setHeader('Access-Control-Allow-Credentials', true);
+
         res.json(row);
     });
     db.close();
@@ -57,6 +63,9 @@ router.get('/:id', function (req, res, next) {
 
     let db = new sqlite3.Database(dbPath);
     db.get(sql, [userId], (err, row) => {
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+        res.setHeader('Access-Control-Allow-Credentials', true);
+
         if (undefined !== row) {
             res.json(row);
         }

@@ -10,8 +10,9 @@ LoseState.prototype = {
 
     create: function () {
         var that = this;
+        var endGameScore = game.state.states['endGameScore'];
 
-        game.add.text(16, 16, 'You LOSE, your points: ' + game.state.states['endGameScore'], {
+        game.add.text(16, 16, 'You LOSE, your points: ' + endGameScore, {
             fontSize: '32px',
             fill: '#fff'
         });
@@ -22,6 +23,13 @@ LoseState.prototype = {
         this.common.addMenuOption('Restart "Spacebar"', Phaser.Keyboard.SPACEBAR, function (e) {
             that.restart();
         });
+
+        this.common.saveScore($.cookie('userName'), endGameScore);
+
+        var that = this;
+        setTimeout(function () {
+            that.common.showHiScores();
+        }, 500);
     },
 
     restart: function () {

@@ -14,7 +14,7 @@ game.state.start('boot');
 
 //TODO
 //sterowanie na komorce
-//sensowna architektówa
+//+ sensowna architektówa
 //test na komórkach
 //fullscrean 
 //sterowanie joystickami
@@ -23,12 +23,12 @@ game.state.start('boot');
 //ładniejsze platformy
 //ładniejsza podłoga
 //animowane gwiazdki
-//klikalne menu
+//+ klikalne menu
 //dźwęk klikania
 //jakieś wspólne dźwięki, jakieś consty, wspólne biblioteki
 //przejrzeć kod jakichś przykładowych gierek
-//w grze ustawianie nicka, zapisywanie wyników i ich wyświetlanie na koncu wyników
-//w nodejs odbieranie wyników, zapis do SQLite i zwracanie wyników
+//+ w grze ustawianie nicka, zapisywanie wyników i ich wyświetlanie na koncu wyników
+//+ w nodejs odbieranie wyników, zapis do SQLite i zwracanie wyników
 
 // function toggleFullScreen() {
 //   if ((document.fullScreenElement && document.fullScreenElement !== null) ||

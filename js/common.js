@@ -5,6 +5,8 @@ Common.prototype = {
 
     optionCount: 1,
 
+    scoreRestEndpoint: "http://localhost:3000/users",
+
     /**
      * Add menu option
      * @param game
@@ -38,5 +40,38 @@ Common.prototype = {
         game.input.keyboard.addKey(letter).onDown.addOnce(callback, this);
 
         this.optionCount++;
+    },
+
+    /**
+     * Save user score and show hiscore
+     * @param string userName
+     * @param int score
+     * @param function callback
+     */
+    saveScore(userName, score) {
+        $.post(this.scoreRestEndpoint, {name: userName, score: score})
+            .done(function (data) {
+            });
+    },
+
+    /**
+     * Print hiscores
+     */
+    showHiScores() {
+        $.get(this.scoreRestEndpoint)
+            .done(function (data) {
+                var textGroup = game.add.group();
+
+                textGroup.add(game.make.text(300, 110, 'Top 10 HiScores:', {
+                    font: "28px Arial",
+                    fill: "white"
+                }));
+                for (var i = 0; i < data.length; i++) {
+                    textGroup.add(game.make.text(300, 150 + i * 26, data[i].name + ' - ' + data[i].score, {
+                        font: "20px Arial",
+                        fill: "white"
+                    }));
+                }
+            });
     }
 };
