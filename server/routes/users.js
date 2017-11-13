@@ -1,36 +1,70 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const path = require('path');
+const sqlite3 = require('sqlite3').verbose();
+const router = express.Router();
 
-var bodyParser = require('body-parser');
-var app = express();
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+const dbPath = path.resolve(__dirname) + '/../database/game.db';
 
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
+/**
+ * Add new users score
+ */
+router.post('/', function (req, res, next) {
+    let name = req.body.name;
+    let score = req.body.score;
 
-console.log('sample log');
+    if (undefined === name || undefined === score) {
+        res.json({'status': 'Invalid arguments'});
+        return;
+    }
 
-/* POST data 8 */
-router.post('/', function(req, res, next){
-    console.log('post data');
-    console.log(req.body);
+    let sql = `
+        INSERT INTO users (name, score) 
+        VALUES(
+            ?, ?  
+        );
+    `;
 
-    res.json({
-        'you_send': req.body
+    let db = new sqlite3.Database(dbPath);
+    db.run(sql, [name, score], (err, row) => {
+        res.json({'status': true});
     });
+    db.close();
 });
 
-/* GET users listing. */
+/**
+ * get top users
+ */
 router.get('/', function (req, res, next) {
-    console.log('log users response');
-    console.log(req.param('a'));
+    let sql = `
+        SELECT * FROM users
+        ORDER BY score ASC
+        LIMIT 10;
+    `;
 
-    res.json({
-        chance: req.chance,
-        'test': 'testdata',
-        'ch': req.param('a')
+    let db = new sqlite3.Database(dbPath);
+    db.all(sql, (err, row) => {
+        res.json(row);
     });
+    db.close();
+});
+
+/**
+ * get user by id
+ */
+router.get('/:id', function (req, res, next) {
+    let userId = req.params.id;
+    let sql = `SELECT * FROM users WHERE id = ?;`;
+
+    let db = new sqlite3.Database(dbPath);
+    db.get(sql, [userId], (err, row) => {
+        if (undefined !== row) {
+            res.json(row);
+        }
+        else {
+            res.json({});
+        }
+    });
+    db.close();
 });
 
 module.exports = router;
