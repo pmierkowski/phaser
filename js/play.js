@@ -57,6 +57,8 @@ PlayState.prototype = {
 
         // Our controls.
         this.cursors = game.input.keyboard.createCursorKeys();
+
+        this.createGamepadButtons();
     },
     update: function () {
         // This function is called 60 times per second    
@@ -126,16 +128,19 @@ PlayState.prototype = {
     },
     createPlayer: function () {
         // The player and its settings
-        this.player = game.add.sprite(32, game.world.height - 150, 'dude');
+        this.player = game.add.sprite(350, game.world.height - 150, 'dude');
         //  We need to enable physics on the player
         game.physics.arcade.enable(this.player);
+        this.player.body.setCircle(22);
+        this.player.body.fixedRotation = true;
         //  Player physics properties. Give the little guy a slight bounce.
         this.player.body.bounce.y = 0;
         this.player.body.gravity.y = 400;
         this.player.body.collideWorldBounds = true;
-        //  Our two animations, walking left and right.
-        this.player.animations.add('left', [0, 1, 2, 3], 10, true);
-        this.player.animations.add('right', [5, 6, 7, 8], 10, true);
+
+        // add some animations
+        this.player.animations.add('walk', [1, 2, 3, 4], 10, true); // (key, framesarray, fps,repeat)
+        game.camera.follow(this.player); //always center player
     },
     createStars: function () {
         //  Finally some stars to collect
@@ -195,21 +200,38 @@ PlayState.prototype = {
         //  Reset the players velocity (movement)
         this.player.body.velocity.x = 0;
         if (this.cursors.left.isDown) {
-            //  Move to the left
-            this.player.body.velocity.x = -150;
-            this.player.animations.play('left');
+            this.moveLeft();
         } else if (this.cursors.right.isDown) {
-            //  Move to the right
-            this.player.body.velocity.x = 150;
-            this.player.animations.play('right');
+            this.moveRight();
         } else {
             //  Stand still
             this.player.animations.stop();
-            this.player.frame = 4;
+            this.player.frame = 0;
+        }
+
+        //in the air
+        if (!this.player.body.touching.down) {
+            //this.player.animations.play('jump');
+            this.player.loadTexture('dude', 5);
         }
 
         //  Allow the player to jump if they are touching the ground.
-        if (this.cursors.up.isDown && this.player.body.touching.down) {
+        if (this.cursors.up.isDown) {
+            this.moveUp();
+        }
+    },
+    moveLeft: function () {
+        this.player.scale.x = -1;
+        this.player.body.velocity.x = -150;
+        this.player.animations.play('walk');
+    },
+    moveRight: function () {
+        this.player.scale.x = 1;
+        this.player.body.velocity.x = 150;
+        this.player.animations.play('walk');
+    },
+    moveUp: function () {
+        if(this.player.body.touching.down) {
             this.player.body.velocity.y = -350;
         }
     },
@@ -229,5 +251,53 @@ PlayState.prototype = {
         game.state.states['endGameScore'] = this.score;
 
         game.state.start('lose')
+    },
+    createGamepadButtons() {
+        let that = this;
+
+        let buttonJump = game.add.button(game.world.width - 150, game.world.height - 120, 'buttonjump', null, this, 0, 1, 0, 1);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+        buttonJump.fixedToCamera = true;  //our buttons should stay on the same place
+        // buttonJump.events.onInputOver.add(function () {
+        //     that.moveUp();
+        // });
+        // buttonJump.events.onInputOut.add(function () {
+        //     that.moveUp();
+        // });
+        buttonJump.events.onInputDown.add(function () {
+            that.moveUp();
+        });
+        // buttonJump.events.onInputUp.add(function () {
+        //     that.moveUp()
+        // });
+
+        let buttonLeft = game.add.button(10, game.world.height - 100, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+        buttonLeft.fixedToCamera = true;
+        buttonLeft.events.onInputOver.add(function () {
+            that.moveLeft();
+        });
+        buttonLeft.events.onInputOut.add(function () {
+            that.moveLeft();
+        });
+        buttonLeft.events.onInputDown.add(function () {
+            that.moveLeft();
+        });
+        buttonLeft.events.onInputUp.add(function () {
+            that.moveLeft();
+        });
+
+        let buttonRight = game.add.button(160, game.world.height - 100, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+        buttonRight.fixedToCamera = true;
+        buttonRight.events.onInputOver.add(function () {
+            that.moveRight();
+        });
+        buttonRight.events.onInputOut.add(function () {
+            that.moveRight();
+        });
+        buttonRight.events.onInputDown.add(function () {
+            that.moveRight();
+        });
+        buttonRight.events.onInputUp.add(function () {
+            that.moveRight();
+        });
     }
 };

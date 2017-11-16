@@ -9,8 +9,14 @@ LoadState.prototype = {
         game.load.image('sky', 'assets/images/sky.png');
         game.load.image('ground', 'assets/images/platform.png');
         game.load.image('star', 'assets/images/star.png');
-        game.load.spritesheet('dude', 'assets/images/dude.png', 32, 48);
+        game.load.spritesheet('dude', 'assets/images/mariospritesheet-small.png', 50, 50);
         game.load.image('spike', 'assets/images/diamond.png');
+
+        //buttons
+        game.load.spritesheet('buttonvertical', 'assets/images/buttons/button-vertical.png',64,64);
+        game.load.spritesheet('buttonhorizontal', 'assets/images/buttons/button-horizontal.png',96,64);
+        game.load.spritesheet('buttondiagonal', 'assets/images/buttons/button-diagonal.png',64,64);
+        game.load.spritesheet('buttonjump', 'assets/images/buttons/button-round-b.png',96,96);
 
         //Sounds
         game.load.audio('collect', 'assets/sounds/collect.mp3');

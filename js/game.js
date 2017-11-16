@@ -31,24 +31,3 @@ game.state.start('boot');
 //+ w grze ustawianie nicka, zapisywanie wyników i ich wyświetlanie na koncu wyników
 //+ w nodejs odbieranie wyników, zapis do SQLite i zwracanie wyników
 //przeniesc ustawienia domen oraz dozwolonych domen do configów
-
-// function toggleFullScreen() {
-//   if ((document.fullScreenElement && document.fullScreenElement !== null) ||
-//    (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-//     if (document.documentElement.requestFullScreen) {
-//       document.documentElement.requestFullScreen();
-//     } else if (document.documentElement.mozRequestFullScreen) {
-//       document.documentElement.mozRequestFullScreen();
-//     } else if (document.documentElement.webkitRequestFullScreen) {
-//       document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-//     }
-//   } else {
-//     if (document.cancelFullScreen) {
-//       document.cancelFullScreen();
-//     } else if (document.mozCancelFullScreen) {
-//       document.mozCancelFullScreen();
-//     } else if (document.webkitCancelFullScreen) {
-//       document.webkitCancelFullScreen();
-//     }
-//   }
-// }
