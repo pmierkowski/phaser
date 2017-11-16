@@ -24,12 +24,9 @@ WinState = {
             that.restart();
         });
 
-        this.common.saveScore($.cookie('userName'), endGameScore);
-
-        var that = this;
-        setTimeout(function () {
+        this.common.saveScore($.cookie('userName'), endGameScore, function(){
             that.common.showHiScores();
-        }, 500);
+        });
     },
 
     restart: function () {

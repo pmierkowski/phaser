@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const router = express.Router();
-
 const dbPath = path.resolve(__dirname) + '/../database/game.db';
 
 /**
@@ -26,9 +25,6 @@ router.post('/', function (req, res, next) {
 
     let db = new sqlite3.Database(dbPath);
     db.run(sql, [name, score], (err, row) => {
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
-        res.setHeader('Access-Control-Allow-Credentials', true);
-
         res.json({'status': true});
     });
     db.close();
@@ -46,9 +42,6 @@ router.get('/', function (req, res, next) {
 
     let db = new sqlite3.Database(dbPath);
     db.all(sql, (err, row) => {
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
-        res.setHeader('Access-Control-Allow-Credentials', true);
-
         res.json(row);
     });
     db.close();
@@ -63,9 +56,6 @@ router.get('/:id', function (req, res, next) {
 
     let db = new sqlite3.Database(dbPath);
     db.get(sql, [userId], (err, row) => {
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
-        res.setHeader('Access-Control-Allow-Credentials', true);
-
         if (undefined !== row) {
             res.json(row);
         }

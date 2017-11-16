@@ -46,11 +46,14 @@ Common.prototype = {
      * Save user score and show hiscore
      * @param string userName
      * @param int score
-     * @param function callback
+     * @param function callbackDone
      */
-    saveScore(userName, score) {
+    saveScore(userName, score, callbackDone) {
         $.post(this.scoreRestEndpoint, {name: userName, score: score})
             .done(function (data) {
+                if(typeof callbackDone === 'function') {
+                    callbackDone();
+                }
             });
     },
 

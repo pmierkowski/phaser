@@ -29,6 +29,7 @@ game.state.start('boot');
 //przejrzeć kod jakichś przykładowych gierek
 //+ w grze ustawianie nicka, zapisywanie wyników i ich wyświetlanie na koncu wyników
 //+ w nodejs odbieranie wyników, zapis do SQLite i zwracanie wyników
+//przeniesc ustawienia domen oraz dozwolonych domen do configów
 
 // function toggleFullScreen() {
 //   if ((document.fullScreenElement && document.fullScreenElement !== null) ||
