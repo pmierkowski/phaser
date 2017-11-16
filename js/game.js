@@ -1,5 +1,5 @@
 // Initialize Phaser, and create a 800px by 600px game
-game = new Phaser.Game(960, 540, Phaser.AUTO, 'gameDiv');
+game = new Phaser.Game(GameConfig.width, GameConfig.height, Phaser.AUTO, 'gameDiv');
 
 // Add the 'mainState' and call it 'main'
 game.state.add('boot', BootState);
@@ -16,7 +16,8 @@ game.state.start('boot');
 //sterowanie na komorce
 //+ sensowna architektówa
 //test na komórkach
-//fullscrean 
+//+fullscrean
+// zachowane proporcje przy foolscrean
 //sterowanie joystickami
 //przewijane mapy w poziomie
 //obejrzeć wszystkie przykłady
