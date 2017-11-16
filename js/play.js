@@ -26,6 +26,11 @@ PlayState.prototype = {
     loseSound: null,
     hitSound: null,
 
+    //directions
+    left: false,
+    right: false,
+    up: false,
+
     init: function () {
         this.starCollected = 0;
         this.score = 0;
@@ -58,7 +63,10 @@ PlayState.prototype = {
         // Our controls.
         this.cursors = game.input.keyboard.createCursorKeys();
 
-        this.createGamepadButtons();
+        //For mobile
+        if (!game.device.desktop) {
+            this.createGamepadButtons();
+        }
     },
     update: function () {
         // This function is called 60 times per second    
@@ -199,9 +207,9 @@ PlayState.prototype = {
     updateMovement: function () {
         //  Reset the players velocity (movement)
         this.player.body.velocity.x = 0;
-        if (this.cursors.left.isDown) {
+        if (this.cursors.left.isDown || this.left) {
             this.moveLeft();
-        } else if (this.cursors.right.isDown) {
+        } else if (this.cursors.right.isDown || this.right) {
             this.moveRight();
         } else {
             //  Stand still
@@ -216,7 +224,7 @@ PlayState.prototype = {
         }
 
         //  Allow the player to jump if they are touching the ground.
-        if (this.cursors.up.isDown) {
+        if (this.cursors.up.isDown || this.up) {
             this.moveUp();
         }
     },
@@ -257,47 +265,47 @@ PlayState.prototype = {
 
         let buttonJump = game.add.button(game.world.width - 150, game.world.height - 120, 'buttonjump', null, this, 0, 1, 0, 1);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
         buttonJump.fixedToCamera = true;  //our buttons should stay on the same place
-        // buttonJump.events.onInputOver.add(function () {
-        //     that.moveUp();
-        // });
-        // buttonJump.events.onInputOut.add(function () {
-        //     that.moveUp();
-        // });
-        buttonJump.events.onInputDown.add(function () {
-            that.moveUp();
+        buttonJump.events.onInputOver.add(function () {
+            that.up = true;
         });
-        // buttonJump.events.onInputUp.add(function () {
-        //     that.moveUp()
-        // });
+        buttonJump.events.onInputOut.add(function () {
+            that.up = false;
+        });
+        buttonJump.events.onInputDown.add(function () {
+            that.up = true;
+        });
+        buttonJump.events.onInputUp.add(function () {
+            that.up = false;
+        });
 
         let buttonLeft = game.add.button(10, game.world.height - 100, 'buttonhorizontal', null, this, 0, 1, 0, 1);
         buttonLeft.fixedToCamera = true;
         buttonLeft.events.onInputOver.add(function () {
-            that.moveLeft();
+            that.left = true;
         });
         buttonLeft.events.onInputOut.add(function () {
-            that.moveLeft();
+            that.left = false;
         });
         buttonLeft.events.onInputDown.add(function () {
-            that.moveLeft();
+            that.left = true;
         });
         buttonLeft.events.onInputUp.add(function () {
-            that.moveLeft();
+            that.left = false;
         });
 
         let buttonRight = game.add.button(160, game.world.height - 100, 'buttonhorizontal', null, this, 0, 1, 0, 1);
         buttonRight.fixedToCamera = true;
         buttonRight.events.onInputOver.add(function () {
-            that.moveRight();
+            that.right = true;
         });
         buttonRight.events.onInputOut.add(function () {
-            that.moveRight();
+            that.right = false;
         });
         buttonRight.events.onInputDown.add(function () {
-            that.moveRight();
+            that.right = true;
         });
         buttonRight.events.onInputUp.add(function () {
-            that.moveRight();
+            that.right = false;
         });
     }
 };
