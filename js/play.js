@@ -10,7 +10,7 @@ PlayState.prototype = {
     spikes: null,
 
     //counters
-    starsCount: 14,
+    starsCount: 17,
     starCollected: 0,
     score: 0,
     lives: 2,
@@ -93,6 +93,7 @@ PlayState.prototype = {
     showScore: function (points) {
         if (this.scoreText === null) {
             this.scoreText = game.add.text(16, 16, 'Score: ' + points, {fontSize: '32px', fill: '#000'});
+            this.scoreText.
         } else {
             this.scoreText.text = 'Score: ' + points;
         }
@@ -115,6 +116,9 @@ PlayState.prototype = {
         this.hitSound = game.add.audio('hit');
     },
     createPlatforms: function () {
+        //scroll world
+        game.world.setBounds(0, 0, GameConfig.width + 200, GameConfig.height);
+
         //  The platforms group contains the ground and the 2 ledges we can jump on
         this.platforms = game.add.group();
         //  We will enable physics for any object that is created in this group
