@@ -14,7 +14,7 @@ MenuState.prototype = {
     create: function () {
         var that = this;
 
-        game.add.text(16, 16, 'HunGRy Monster Game', {fontSize: '32px', fill: '#fff'});
+        game.add.text(16, 16, 'Sample Game', {fontSize: '32px', fill: '#fff'});
 
         this.common.addMenuOption('FullScreen "F"', Phaser.Keyboard.F, function (e) {
             that.toggleFullScreen();
