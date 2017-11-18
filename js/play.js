@@ -143,11 +143,12 @@ PlayState.prototype = {
         this.player.body.fixedRotation = true;
         //  Player physics properties. Give the little guy a slight bounce.
         this.player.body.bounce.y = 0;
-        this.player.body.gravity.y = 400;
+        this.player.body.gravity.y = GameConfig.gravity;
         this.player.body.collideWorldBounds = true;
 
         // add some animations
-        this.player.animations.add('walk', [1, 2, 3, 4], 10, true); // (key, framesarray, fps,repeat)
+        this.player.animations.add('walk_right', [1, 2, 3, 4], 10, true); // (key, framesarray, fps,repeat)
+        this.player.animations.add('walk_left', [7, 8, 9, 10], 10, true);
         game.camera.follow(this.player); //always center player
     },
     createStars: function () {
@@ -160,7 +161,7 @@ PlayState.prototype = {
             //  Create a star inside of the 'stars' group
             var star = this.stars.create(i * 70, 0, 'star');
             //  Let gravity do its thing
-            star.body.gravity.y = 300;
+            star.body.gravity.y = GameConfig.gravity;
             //  This just gives each star a slightly random bounce value
             star.body.bounce.y = 0.2 + Math.random() * 0.2;
         }
@@ -185,7 +186,7 @@ PlayState.prototype = {
 
         for (var i = 0; i < spikesList.length; i++) {
             var spike = this.spikes.create(spikesList[i][0], game.world.height - spikesList[i][1], 'spike');
-            spike.body.gravity.y = 300;
+            spike.body.gravity.y = GameConfig.gravity;
         }
     },
     touchSpike: function (player, spike) {
@@ -207,6 +208,7 @@ PlayState.prototype = {
     updateMovement: function () {
         //  Reset the players velocity (movement)
         this.player.body.velocity.x = 0;
+
         if (this.cursors.left.isDown || this.left) {
             this.moveLeft();
         } else if (this.cursors.right.isDown || this.right) {
@@ -219,8 +221,12 @@ PlayState.prototype = {
 
         //in the air
         if (!this.player.body.touching.down) {
-            //this.player.animations.play('jump');
-            this.player.loadTexture('dude', 5);
+            if(this.cursors.left.isDown || this.left) {
+                this.player.loadTexture('dude', 11);
+            }
+            if(this.cursors.right.isDown || this.right) {
+                this.player.loadTexture('dude', 5);
+            }
         }
 
         //  Allow the player to jump if they are touching the ground.
@@ -229,18 +235,18 @@ PlayState.prototype = {
         }
     },
     moveLeft: function () {
-        this.player.scale.x = -1;
-        this.player.body.velocity.x = -150;
-        this.player.animations.play('walk');
+        //this.player.scale.x = 1;
+        this.player.body.velocity.x = GameConfig.playerMovementSpeed * -1;
+        this.player.animations.play('walk_left');
     },
     moveRight: function () {
-        this.player.scale.x = 1;
-        this.player.body.velocity.x = 150;
-        this.player.animations.play('walk');
+        //this.player.scale.x = 1;
+        this.player.body.velocity.x = GameConfig.playerMovementSpeed;
+        this.player.animations.play('walk_right');
     },
     moveUp: function () {
-        if(this.player.body.touching.down) {
-            this.player.body.velocity.y = -350;
+        if (this.player.body.touching.down) {
+            this.player.body.velocity.y = GameConfig.playerJumpHeight * -1;
         }
     },
     win: function () {

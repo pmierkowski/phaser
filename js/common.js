@@ -46,7 +46,7 @@ Common.prototype = {
      * @param callbackDone
      */
     saveScore(userName, score, callbackDone) {
-        $.post(GameConfig.restEndpoint + 'users', {name: userName, score: score})
+        $.post(this.getRestEndpoint() + 'users', {name: userName, score: score})
             .done(function (data) {
                 if (typeof callbackDone === 'function') {
                     callbackDone();
@@ -58,20 +58,29 @@ Common.prototype = {
      * Print hiscores
      */
     showHiScores() {
-        $.get(GameConfig.restEndpoint + 'users')
+        $.get(this.getRestEndpoint() + 'users')
             .done(function (data) {
                 let textGroup = game.add.group();
 
-                textGroup.add(game.make.text(300, 110, 'Top 10 HiScores:', {
+                textGroup.add(game.make.text(360, 120, 'Top 10 HiScores:', {
                     font: "28px Arial",
                     fill: "white"
                 }));
                 for (let i = 0; i < data.length; i++) {
-                    textGroup.add(game.make.text(300, 150 + i * 26, data[i].name + ' - ' + data[i].score, {
+                    textGroup.add(game.make.text(360, 160 + i * 26, data[i].name + ' - ' + data[i].score, {
                         font: "20px Arial",
                         fill: "white"
                     }));
                 }
             });
+    },
+
+    getRestEndpoint() {
+        if('localhost' === window.location.hostname) {
+            return GameConfig.restNodeEndpoint;
+        }
+        else{
+            return GameConfig.restPhpEndpoint;
+        }
     }
 };

@@ -24,7 +24,7 @@ MenuState.prototype = {
         });
 
         //Input text field
-        this.userName = game.add.inputField(16, 150, {
+        this.userName = game.add.inputField(16, 120, {
             font: '18px Arial',
             fill: '#212121',
             fontWeight: 'bold',
@@ -40,6 +40,8 @@ MenuState.prototype = {
         if ($.cookie('userName')) {
             this.userName.setText($.cookie('userName'));
         }
+
+        this.common.showHiScores();
     },
 
     start: function () {
