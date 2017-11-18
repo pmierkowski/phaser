@@ -93,7 +93,6 @@ PlayState.prototype = {
     showScore: function (points) {
         if (this.scoreText === null) {
             this.scoreText = game.add.text(16, 16, 'Score: ' + points, {fontSize: '32px', fill: '#000'});
-            this.scoreText.
         } else {
             this.scoreText.text = 'Score: ' + points;
         }
