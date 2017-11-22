@@ -93,16 +93,18 @@ PlayState.prototype = {
     showScore: function (points) {
         if (this.scoreText === null) {
             this.scoreText = game.add.text(16, 16, 'Score: ' + points, {fontSize: '32px', fill: '#000'});
+            this.scoreText.fixedToCamera = true;
         } else {
             this.scoreText.text = 'Score: ' + points;
         }
     },
     showLives: function (lives) {
         if (this.livesText === null) {
-            this.livesText = game.add.text(game.world.width - 150, 16, 'Lives: ' + lives, {
+            this.livesText = game.add.text(GameConfig.width - 150, 16, 'Lives: ' + lives, {
                 fontSize: '32px',
                 fill: '#000'
             });
+            this.livesText.fixedToCamera = true;
         } else {
             this.livesText.text = 'Lives: ' + lives;
         }
