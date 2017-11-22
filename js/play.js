@@ -274,7 +274,7 @@ PlayState.prototype = {
     createGamepadButtons() {
         let that = this;
 
-        let buttonJump = game.add.button(game.world.width - 150, game.world.height - 120, 'buttonjump', null, this, 0, 1, 0, 1);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
+        let buttonJump = game.add.button(GameConfig.width - 150, GameConfig.height - 120, 'buttonjump', null, this, 0, 1, 0, 1);  //game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame
         buttonJump.fixedToCamera = true;  //our buttons should stay on the same place
         buttonJump.events.onInputOver.add(function () {
             that.up = true;
@@ -289,7 +289,7 @@ PlayState.prototype = {
             that.up = false;
         });
 
-        let buttonLeft = game.add.button(10, game.world.height - 100, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+        let buttonLeft = game.add.button(10, GameConfig.height - 100, 'buttonhorizontal', null, this, 0, 1, 0, 1);
         buttonLeft.fixedToCamera = true;
         buttonLeft.events.onInputOver.add(function () {
             that.left = true;
@@ -304,7 +304,7 @@ PlayState.prototype = {
             that.left = false;
         });
 
-        let buttonRight = game.add.button(160, game.world.height - 100, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+        let buttonRight = game.add.button(160, GameConfig.height - 100, 'buttonhorizontal', null, this, 0, 1, 0, 1);
         buttonRight.fixedToCamera = true;
         buttonRight.events.onInputOver.add(function () {
             that.right = true;
